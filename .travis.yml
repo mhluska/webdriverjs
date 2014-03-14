@@ -12,7 +12,7 @@ before_script:
   - "java -jar selenium-server-standalone-2.39.0.jar 2>&1 >/dev/null &"
   - "2>/dev/null 1>/dev/null python -m SimpleHTTPServer 8080 &"
 
-script: "if [[ $TRAVIS_BRANCH == 'master' && $_BROWSER == 'phantomjs' ]] || [[ $TRAVIS_BRANCH != 'master' && $_BROWSER != 'phantomjs' ]]; then echo 'This test was skipped' && exit 0; else npm run coverage; fi"
+script: "if [[ $_BROWSER == 'phantomjs' ]]; then echo 'This test was skipped' && exit 0; else npm run coverage; fi"
 
 after_script:
   - "[ -d ./coverage ] && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
